@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Deccan</title>
+  <style>
+    body { background-color: #000; color: #0f0; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .container { background-color: #111; padding: 30px; border: 2px solid #0f0; border-radius: 10px; width: 350px; }
+    h1 { text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #0f0; }
+    input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #0f0; border-radius: 5px; background-color: #000; color: #0f0; }
+    button { width: 100%; padding: 10px; background-color: #0f0; color: #000; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    button:hover { background-color: #00ff00aa; }
+    .link { text-align: center; margin-top: 10px; }
+    .link a { color: #0f0; text-decoration: none; }
+    .link a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <input type="text" id="userid" placeholder="User ID" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="loginUser()">Login</button>
+    <div class="link">
+      <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+  </div>
+
+  <script>
+    function loginUser() {
+      let userid = document.getElementById('userid').value;
+      let password = document.getElementById('password').value;
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      let user = users.find(u => u.userid === userid && u.password === password);
+      if(user){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid User ID or Password!");
+      }
+    }
+  </script>
+</body>
+</html>

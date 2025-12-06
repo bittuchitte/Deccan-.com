@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Deccan</title>
+  <style>
+    body { background-color: #000; color: #0f0; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .container { background-color: #111; padding: 30px; border: 2px solid #0f0; border-radius: 10px; width: 350px; }
+    h1 { text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #0f0; }
+    input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #0f0; border-radius: 5px; background-color: #000; color: #0f0; }
+    button { width: 100%; padding: 10px; background-color: #0f0; color: #000; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    button:hover { background-color: #00ff00aa; }
+    .link { text-align: center; margin-top: 10px; }
+    .link a { color: #0f0; text-decoration: none; }
+    .link a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Register</h1>
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="codename" placeholder="Code Name" required>
+    <input type="text" id="mobile" placeholder="Mobile Number" required>
+    <input type="text" id="userid" placeholder="User ID" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="registerUser()">Create Account</button>
+    <div class="link">
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+
+  <script>
+    function registerUser() {
+      let name = document.getElementById('name').value;
+      let codename = document.getElementById('codename').value;
+      let mobile = document.getElementById('mobile').value;
+      let userid = document.getElementById('userid').value;
+      let password = document.getElementById('password').value;
+
+      if(!name || !codename || !mobile || !userid || !password){ alert("Please fill all fields!"); return; }
+
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      let exists = users.find(u => u.userid === userid);
+      if(exists){ alert("User ID already exists!"); return; }
+
+      users.push({name, codename, mobile, userid, password});
+      localStorage.setItem('users', JSON.stringify(users));
+      alert("Account created successfully!");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
